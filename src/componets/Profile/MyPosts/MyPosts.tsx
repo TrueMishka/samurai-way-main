@@ -8,8 +8,8 @@ const MyPosts = () => {
             <div>
                 New posts
             </div>
-            <Post message={'Hello World'} likes={15}/>
-            <Post message={'Goodbye World'} likes={20}/>
+            <Post message={'Hello World'} likesCount={15}/>
+            <Post message={'Goodbye World'} likesCount={20}/>
         </div>
     );
 }
