@@ -2,8 +2,13 @@
     grid-area: navbar;
     width: 100px;
     background-color: #E6E6E6;
+    padding: 15px;
 }
 
 .item {
     color: black;
+    text-decoration: none;
+}
+.item a.active {
+    color: brown;
 }
