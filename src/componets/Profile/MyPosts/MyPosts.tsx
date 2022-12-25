@@ -1,7 +1,8 @@
 import React from "react";
 import {Post} from "./Post/Post";
 import classes from "./MyPosts.module.css";
-import {PostDataType} from "../../../index";
+import {PostDataType} from "../../../redux/state";
+
 
 type propsType = {
     postData: PostDataType[]
