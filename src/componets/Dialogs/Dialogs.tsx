@@ -1,8 +1,6 @@
 import React from "react";
 import classes from "./Dialogs.module.css";
-import {NavLink} from "react-router-dom";
-import {DialogItem} from "./Dialogitem/Dialogitem";
-import exp from "constants";
+import {DialogItem} from "./Dialogitem/DialogItem";
 import {Message} from "./Dialogitem/Message/Message";
 
 export type DialogsPropsType = {
@@ -11,7 +9,8 @@ export type DialogsPropsType = {
 }
 
 export type MessagesPropsType = {
-    title: string
+    id: number
+    message: string
 }
 
 const dialogs: DialogsPropsType[] = [
@@ -21,27 +20,26 @@ const dialogs: DialogsPropsType[] = [
     {id: 4, name: 'Burn'},
     {id: 5, name: 'Zveklas'}
 ]
-
 const messages: MessagesPropsType[] = [
-    {title: 'Hi'},
-    {title: 'How are you?'},
-    {title: 'Yo'},
-    {title: 'Yo-Yo'},
-    {title: 'UwU'},
+    {id: 1, message: 'Hi'},
+    {id: 1, message: 'How are you?'},
+    {id: 1, message: 'Yo'},
+    {id: 1, message: 'Yo-Yo'},
+    {id: 1, message: 'UwU'},
 ]
 
 export const Dialogs = () => {
+
+    let dialogsElements = dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>);
+    let messagesElements = messages.map(message => <Message id={message.id} message={message.message}/>);
+
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogItems}>
-                {dialogs.map((d,index) => {
-                    return <DialogItem id={d.id} name={d.name}/>
-                })}
+                {dialogsElements}
             </div>
             <div className={classes.messages}>
-                {messages.map((m, index) => {
-                    return <Message title={m.title}/>
-                })}
+                {messagesElements}
             </div>
         </div>
     );

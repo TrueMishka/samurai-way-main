@@ -5,7 +5,7 @@ import {MessagesPropsType} from "../../Dialogs";
 export const Message = (props: MessagesPropsType) => {
     return (
         <div className={classes.message}>
-            {props.title}
+            <span>{`id - ${props.id}//${props.message}`}</span>
         </div>
     );
 };
