@@ -6,14 +6,17 @@ import {PostDataType} from "../../../redux/state";
 
 type propsType = {
     postData: PostDataType[]
+    addPost: (postMessage: string) => void
 }
-export const MyPosts:React.FC<propsType> = ({postData}) => {
+export const MyPosts:React.FC<propsType> = ({postData, addPost}) => {
 
     const postsElements = postData.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
     const newPostElement:RefObject<HTMLTextAreaElement> = React.createRef()
 
-    const addPost = () => {
-        alert(newPostElement.current?.value)
+    const onClickAddPost = () => {
+        if (newPostElement.current) {
+            addPost(newPostElement.current?.value)
+        }
     }
 
     return (
@@ -24,7 +27,7 @@ export const MyPosts:React.FC<propsType> = ({postData}) => {
                     <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={onClickAddPost}>Add post</button>
                 </div>
             </div>
             <div className={classes.posts}>

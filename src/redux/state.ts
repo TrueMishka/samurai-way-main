@@ -59,3 +59,12 @@ export const rootState: RootStateType = {
         ]
     }
 }
+
+export const addPost = (postMessage: string) => {
+    let newPost: PostDataType = {
+        id: 5,
+        message: postMessage,
+        likesCount: 0
+    }
+    rootState.profilePage.posts.push(newPost)
+}

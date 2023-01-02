@@ -9,13 +9,14 @@ type ProfilePageType = {
     profilePage: {
         posts: PostDataType[]
     }
+    addPost: (postMessage: string) => void
 }
 
-export const Profile:React.FC<ProfilePageType> = ({profilePage}) => {
+export const Profile:React.FC<ProfilePageType> = ({profilePage, addPost}) => {
     return (
         <div className={classes.profile}>
             <ProfileInfo/>
-            <MyPosts postData={profilePage.posts}/>
+            <MyPosts postData={profilePage.posts} addPost={addPost}/>
         </div>
     );
 }
