@@ -8,14 +8,15 @@ type propsType = {
     postData: PostDataType[]
     addPost: (postMessage: string) => void
 }
-export const MyPosts:React.FC<propsType> = ({postData, addPost}) => {
+export const MyPosts: React.FC<propsType> = ({postData, addPost}) => {
 
     const postsElements = postData.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
-    const newPostElement:RefObject<HTMLTextAreaElement> = React.createRef()
+    const newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const onClickAddPost = () => {
         if (newPostElement.current) {
-            addPost(newPostElement.current?.value)
+            addPost(newPostElement.current.value)
+            newPostElement.current.value = ''
         }
     }
 
