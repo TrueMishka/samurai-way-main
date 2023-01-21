@@ -7,9 +7,9 @@ type PropsType = {
 }
 
 export const Friends: React.FC<PropsType> = ({friends}) => {
-    const showFriends = friends.map(f => {
+    const showFriends = friends.map((f, index) => {
         return (
-            <div>
+            <div key={index}>
                 <img className={classes.avatar} src={'https://cdn.pixabay.com/photo/2012/06/19/10/32/owl-50267_960_720.jpg'}/>
                 <div>{f.name}</div>
             </div>

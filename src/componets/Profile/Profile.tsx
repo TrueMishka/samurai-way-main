@@ -8,15 +8,21 @@ import {PostDataType} from "../../redux/state";
 type ProfilePageType = {
     profilePage: {
         posts: PostDataType[]
+        newPostText: string
     }
-    addPost: (postMessage: string) => void
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
 }
 
-export const Profile:React.FC<ProfilePageType> = ({profilePage, addPost}) => {
+export const Profile:React.FC<ProfilePageType> = ({profilePage, addPost, updateNewPostText}) => {
     return (
         <div className={classes.profile}>
             <ProfileInfo/>
-            <MyPosts postData={profilePage.posts} addPost={addPost}/>
+            <MyPosts postData={profilePage.posts}
+                     newPostText={profilePage.newPostText}
+                     addPost={addPost}
+                     updateNewPostText={updateNewPostText}
+            />
         </div>
     );
 }
