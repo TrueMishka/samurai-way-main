@@ -8,26 +8,26 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./componets/News/News";
 import {Music} from "./componets/Music/Music";
 import {Settings} from "./componets/Settings/Settings";
-import {addPost, RootStateType, updateNewPostText} from "./redux/state";
+import {store, StoreType, RootStateType} from "./redux/state";
 
 
 type PropsType = {
-    rootState: RootStateType
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    store: StoreType
 }
 
-const App: React.FC<PropsType> = ({rootState, addPost, updateNewPostText}) => {
+const App: React.FC<PropsType> = ({store}) => {
+    const state = store.getState()
+
     return (
         <BrowserRouter>
             <div className={'app-wrapper'}>
                 <Header/>
-                <Navbar sidebar={rootState.sidebar}/>
+                <Navbar friends={state.sidebar.friends}/>
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/profile'} render={() => <Profile profilePage={rootState.profilePage}
-                                                                    addPost={addPost}
-                                                                    updateNewPostText={updateNewPostText}/>}/>
-                    <Route path={'/dialogs'} render={() => <Dialogs dialogPage={rootState.dialogsPage}/>}/>
+                    <Route path={'/profile'} render={() => <Profile profilePage={state.profilePage}
+                                                                    addPost={store.addPost.bind(store)}
+                                                                    updateNewPostText={store.updateNewPostText.bind(store)} />}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs dialogPage={state.dialogsPage}/>}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>

@@ -2,15 +2,13 @@ import React from "react";
 import classes from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 import {Friends} from "./Friends/Friends";
-import {FriendsType} from "../../redux/state";
+import {FriendsType, StoreType} from "../../redux/state";
 
 type PropsType = {
-    sidebar: {
-        friends: FriendsType[]
-    }
+    friends: FriendsType[]
 }
 
-export const Navbar:React.FC<PropsType> = ({sidebar}) => {
+export const Navbar:React.FC<PropsType> = ({friends}) => {
     return (
         <div className={classes.nav}>
             <nav>
@@ -31,7 +29,7 @@ export const Navbar:React.FC<PropsType> = ({sidebar}) => {
                 </div>
             </nav>
             <div className={classes.item}>
-                <Friends friends={sidebar.friends}/>
+                <Friends friends={friends}/>
             </div>
         </div>
     );
