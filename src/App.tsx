@@ -8,7 +8,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./componets/News/News";
 import {Music} from "./componets/Music/Music";
 import {Settings} from "./componets/Settings/Settings";
-import {store, StoreType, RootStateType} from "./redux/state";
+import {StoreType} from "./redux/state";
 
 
 type PropsType = {
@@ -25,9 +25,9 @@ const App: React.FC<PropsType> = ({store}) => {
                 <Navbar friends={state.sidebar.friends}/>
                 <div className={'app-wrapper-content'}>
                     <Route path={'/profile'} render={() => <Profile profilePage={state.profilePage}
-                                                                    addPost={store.addPost.bind(store)}
-                                                                    updateNewPostText={store.updateNewPostText.bind(store)} />}/>
-                    <Route path={'/dialogs'} render={() => <Dialogs dialogPage={state.dialogsPage}/>}/>
+                                                                    dispatch={store.dispatch.bind(store)}/>}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs dialogPage={state.dialogsPage}
+                                                                    dispatch={store.dispatch.bind(store)}/>}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>

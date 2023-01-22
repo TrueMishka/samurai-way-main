@@ -14,5 +14,5 @@ const rerenderEntireTree = () => {
     );
 }
 
+rerenderEntireTree()
 store.subscribe(rerenderEntireTree)
-store.rerenderEntireTree(store.getState())

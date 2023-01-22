@@ -1,35 +1,33 @@
 import React, {RefObject, KeyboardEvent} from "react";
 import {Post} from "./Post/Post";
 import classes from "./MyPosts.module.css";
-import {PostDataType} from "../../../redux/state";
-
+import {ActionTypes, addPostActionCreator, PostDataType, updateNewPostTextActionCreator} from "../../../redux/state";
 
 type propsType = {
     postData: PostDataType[]
     newPostText: string
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: ActionTypes) => void
 }
-export const MyPosts: React.FC<propsType> = ({postData, addPost, updateNewPostText, newPostText}) => {
+export const MyPosts: React.FC<propsType> = ({postData, newPostText, dispatch}) => {
 
     const postsElements = postData.map(p => <div key={p.id}><Post id={p.id} message={p.message} likesCount={p.likesCount}/></div>)
     const newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const onClickAddPost = () => {
         if (newPostElement.current) {
-            addPost()
+            dispatch(addPostActionCreator())
         }
     }
 
     const onKeyUpAddPost = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === 'Enter' && e.shiftKey) {
+        if (e.key === 'Enter' && e.ctrlKey) {
             onClickAddPost()
         }
     }
 
     const onPostChange = () => {
         if (newPostElement.current) {
-            updateNewPostText(newPostElement.current.value)
+            dispatch(updateNewPostTextActionCreator(newPostElement.current.value))
         }
     }
 

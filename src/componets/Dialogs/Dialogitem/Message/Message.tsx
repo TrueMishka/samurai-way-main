@@ -6,7 +6,7 @@ import {MessagesPropsType} from "../../../../redux/state";
 export const Message = (props: MessagesPropsType) => {
     return (
         <div className={classes.message}>
-            <span>{`id - ${props.id}//${props.message}`}</span>
+            <span key={props.id}>{props.message}</span>
         </div>
     );
 };

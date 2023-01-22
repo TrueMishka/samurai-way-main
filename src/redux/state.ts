@@ -1,65 +1,9 @@
-/*let rerenderEntireTree = (rootState: RootStateType) => {
-    console.log('state changed')
-}*/
-
-
-/*
-export const rootState: any = {
-    profilePage: {
-        posts: [
-            {id: 1, message: 'Hello World', likesCount: 15},
-            {id: 2, message: 'Goodbye World', likesCount: 23},
-        ],
-        newPostText: 'it-kamastutra'
-    },
-    dialogsPage: {
-        dialogs: [
-            {id: 1, name: 'Mishka'},
-            {id: 2, name: 'Vizix'},
-            {id: 3, name: 'Kibot'},
-            {id: 4, name: 'Burn'},
-            {id: 5, name: 'Zveklas'}
-        ],
-        messages: [
-            {id: 1, message: 'Hi'},
-            {id: 1, message: 'How are you?'},
-            {id: 1, message: 'Yo'},
-            {id: 1, message: 'Yo-Yo'},
-            {id: 1, message: 'UwU'}
-        ]
-    },
-    sidebar: {
-        friends: [
-            {id: 1, name: 'Mishka'},
-            {id: 1, name: 'Sasha'},
-            {id: 1, name: 'Masha'}
-        ]
-    }
-}
-
-export const addPost = () => {
-    if (rootState.profilePage.newPostText) {
-        const newPost: PostDataType = {
-            id: 5,
-            message: rootState.profilePage.newPostText,
-            likesCount: 0
-        }
-        rootState.profilePage.posts.push(newPost)
-        rootState.profilePage.newPostText = ''
-        rerenderEntireTree(rootState)
-    }
-}
-
-export const updateNewPostText = (newText: string) => {
-    rootState.profilePage.newPostText = newText
-    rerenderEntireTree(rootState)
-}
-
-export const subscribe = (observer: (rootState: RootStateType) => void) => {
-    rerenderEntireTree = observer // патерн observer
-}*/
-
 // store - OOP
+
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const ADD_DIALOG_MESSAGE = 'ADD-DIALOG-MESSAGE';
+const UPDATE_NEW_DIALOG_MESSAGE_TEXT = 'UPDATE-NEW-DIALOG-MESSAGE-TEXT';
 
 export type PostDataType = {
     id: number
@@ -86,23 +30,45 @@ export type RootStateType = {
     dialogsPage: {
         dialogs: DialogsPropsType[]
         messages: MessagesPropsType[]
+        newDialogMessageText: string
     }
     sidebar: {
         friends: FriendsType[]
     }
 }
-
 export type StoreType = {
-    _rootState: RootStateType
+    _state: RootStateType
+    _callSubscriber: (rootState: RootStateType) => void
     getState: () => RootStateType
-    updateNewPostText: (newText: string) => void
-    addPost: () => void
     subscribe: (observer: () => void) => void
-    rerenderEntireTree: (rootState: RootStateType) => void
+    dispatch: (action: ActionTypes) => void
 }
 
+export type ActionTypes = ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof updateNewPostTextActionCreator>
+    | ReturnType<typeof addDialogMessage>
+    | ReturnType<typeof updateNewDialogMessageTextActionCreator>
+
+export const addPostActionCreator = () => ({
+    type: ADD_POST
+} as const)
+
+export const updateNewPostTextActionCreator = (postText: string) => ({
+    type: UPDATE_NEW_POST_TEXT,
+    newText: postText
+} as const)
+
+export const addDialogMessage = () => ({
+    type: ADD_DIALOG_MESSAGE
+} as const)
+
+export const updateNewDialogMessageTextActionCreator = (messageText: string) => ({
+    type: UPDATE_NEW_DIALOG_MESSAGE_TEXT,
+    newText: messageText
+} as const)
+
 export const store: StoreType = {
-    _rootState: {
+    _state: {
         profilePage: {
             posts: [
                 {id: 1, message: 'Hello World', likesCount: 15},
@@ -120,11 +86,12 @@ export const store: StoreType = {
             ],
             messages: [
                 {id: 1, message: 'Hi'},
-                {id: 1, message: 'How are you?'},
-                {id: 1, message: 'Yo'},
-                {id: 1, message: 'Yo-Yo'},
-                {id: 1, message: 'UwU'}
-            ]
+                {id: 2, message: 'How are you?'},
+                {id: 3, message: 'Yo'},
+                {id: 4, message: 'Yo-Yo'},
+                {id: 5, message: 'UwU'}
+            ],
+            newDialogMessageText: 'hello'
         },
         sidebar: {
             friends: [
@@ -135,28 +102,47 @@ export const store: StoreType = {
         }
     },
     getState() {
-       return this._rootState
-    },
-    updateNewPostText(newText: string) {
-        this._rootState.profilePage.newPostText = newText
-        this.rerenderEntireTree(this._rootState)
-    },
-    addPost() {
-        if (this._rootState.profilePage.newPostText) {
-            const newPost: PostDataType = {
-                id: new Date().getTime(),
-                message: this._rootState.profilePage.newPostText,
-                likesCount: 0
-            }
-            this._rootState.profilePage.posts.push(newPost)
-            this._rootState.profilePage.newPostText = ''
-            this.rerenderEntireTree(this._rootState)
-        }
+        return this._state
     },
     subscribe(observer) {
-        this.rerenderEntireTree = observer // патерн observer
+        this._callSubscriber = observer // патерн observer
     },
-    rerenderEntireTree(rootState: RootStateType) {
+    _callSubscriber(rootState: RootStateType) {
         console.log('state changed')
+    },
+    dispatch(action) {
+        switch (action.type) {
+            case ADD_POST:
+                if (this._state.profilePage.newPostText.trim()) {
+                    const newPost: PostDataType = {
+                        id: new Date().getTime(),
+                        message: this._state.profilePage.newPostText.trim(),
+                        likesCount: 0
+                    }
+                    this._state.profilePage.posts.push(newPost)
+                    this._state.profilePage.newPostText = ''
+                    this._callSubscriber(this._state)
+                }
+                break;
+            case UPDATE_NEW_POST_TEXT:
+                this._state.profilePage.newPostText = action.newText
+                this._callSubscriber(this._state)
+                break;
+            case ADD_DIALOG_MESSAGE:
+                const newMessage: MessagesPropsType = {
+                    id: new Date().getTime(),
+                    message: this._state.dialogsPage.newDialogMessageText
+                }
+                this._state.dialogsPage.messages.push(newMessage)
+                this._state.dialogsPage.newDialogMessageText = ''
+                this._callSubscriber(this._state)
+                break;
+            case "UPDATE-NEW-DIALOG-MESSAGE-TEXT":
+                this._state.dialogsPage.newDialogMessageText = action.newText
+                this._callSubscriber(this._state)
+                break;
+            default:
+                console.log('Something go wrong')
+        }
     }
 }

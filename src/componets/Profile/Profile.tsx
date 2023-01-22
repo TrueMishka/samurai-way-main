@@ -2,7 +2,7 @@ import React from "react";
 import classes from './Profile.module.css';
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {PostDataType} from "../../redux/state";
+import {ActionTypes, PostDataType} from "../../redux/state";
 
 
 type ProfilePageType = {
@@ -10,18 +10,16 @@ type ProfilePageType = {
         posts: PostDataType[]
         newPostText: string
     }
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: ActionTypes) => void
 }
 
-export const Profile:React.FC<ProfilePageType> = ({profilePage, addPost, updateNewPostText}) => {
+export const Profile:React.FC<ProfilePageType> = ({profilePage,dispatch}) => {
     return (
         <div className={classes.profile}>
             <ProfileInfo/>
             <MyPosts postData={profilePage.posts}
                      newPostText={profilePage.newPostText}
-                     addPost={addPost}
-                     updateNewPostText={updateNewPostText}
+                     dispatch={dispatch}
             />
         </div>
     );
