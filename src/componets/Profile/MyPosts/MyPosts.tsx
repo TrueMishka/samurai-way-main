@@ -1,7 +1,7 @@
 import React, {RefObject, KeyboardEvent} from "react";
 import {Post} from "./Post/Post";
 import classes from "./MyPosts.module.css";
-import {ActionTypes, addPostActionCreator, PostDataType, updateNewPostTextActionCreator} from "../../../redux/state";
+import {ActionTypes, addPostCreator, PostDataType, updateNewPostTextCreator} from "../../../redux/state";
 
 type propsType = {
     postData: PostDataType[]
@@ -15,7 +15,7 @@ export const MyPosts: React.FC<propsType> = ({postData, newPostText, dispatch}) 
 
     const onClickAddPost = () => {
         if (newPostElement.current) {
-            dispatch(addPostActionCreator())
+            dispatch(addPostCreator())
         }
     }
 
@@ -27,7 +27,7 @@ export const MyPosts: React.FC<propsType> = ({postData, newPostText, dispatch}) 
 
     const onPostChange = () => {
         if (newPostElement.current) {
-            dispatch(updateNewPostTextActionCreator(newPostElement.current.value))
+            dispatch(updateNewPostTextCreator(newPostElement.current.value))
         }
     }
 

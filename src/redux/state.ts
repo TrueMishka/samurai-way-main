@@ -2,8 +2,8 @@
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const ADD_DIALOG_MESSAGE = 'ADD-DIALOG-MESSAGE';
-const UPDATE_NEW_DIALOG_MESSAGE_TEXT = 'UPDATE-NEW-DIALOG-MESSAGE-TEXT';
+const SEND_MESSAGE = 'SEND-MESSAGE';
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 
 export type PostDataType = {
     id: number
@@ -30,7 +30,7 @@ export type RootStateType = {
     dialogsPage: {
         dialogs: DialogsPropsType[]
         messages: MessagesPropsType[]
-        newDialogMessageText: string
+        newMessageBody: string
     }
     sidebar: {
         friends: FriendsType[]
@@ -44,27 +44,27 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export type ActionTypes = ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostTextActionCreator>
-    | ReturnType<typeof addDialogMessage>
-    | ReturnType<typeof updateNewDialogMessageTextActionCreator>
+export type ActionTypes = ReturnType<typeof addPostCreator>
+    | ReturnType<typeof updateNewPostTextCreator>
+    | ReturnType<typeof sendMessageCreator>
+    | ReturnType<typeof updateNewMessageBodyCreator>
 
-export const addPostActionCreator = () => ({
+export const addPostCreator = () => ({
     type: ADD_POST
 } as const)
 
-export const updateNewPostTextActionCreator = (postText: string) => ({
+export const updateNewPostTextCreator = (postText: string) => ({
     type: UPDATE_NEW_POST_TEXT,
     newText: postText
 } as const)
 
-export const addDialogMessage = () => ({
-    type: ADD_DIALOG_MESSAGE
+export const sendMessageCreator = () => ({
+    type: SEND_MESSAGE
 } as const)
 
-export const updateNewDialogMessageTextActionCreator = (messageText: string) => ({
-    type: UPDATE_NEW_DIALOG_MESSAGE_TEXT,
-    newText: messageText
+export const updateNewMessageBodyCreator = (messageText: string) => ({
+    type: UPDATE_NEW_MESSAGE_BODY,
+    body: messageText
 } as const)
 
 export const store: StoreType = {
@@ -91,7 +91,7 @@ export const store: StoreType = {
                 {id: 4, message: 'Yo-Yo'},
                 {id: 5, message: 'UwU'}
             ],
-            newDialogMessageText: 'hello'
+            newMessageBody: ''
         },
         sidebar: {
             friends: [
@@ -128,17 +128,17 @@ export const store: StoreType = {
                 this._state.profilePage.newPostText = action.newText
                 this._callSubscriber(this._state)
                 break;
-            case ADD_DIALOG_MESSAGE:
+            case SEND_MESSAGE:
                 const newMessage: MessagesPropsType = {
                     id: new Date().getTime(),
-                    message: this._state.dialogsPage.newDialogMessageText
+                    message: this._state.dialogsPage.newMessageBody
                 }
                 this._state.dialogsPage.messages.push(newMessage)
-                this._state.dialogsPage.newDialogMessageText = ''
+                this._state.dialogsPage.newMessageBody = ''
                 this._callSubscriber(this._state)
                 break;
-            case "UPDATE-NEW-DIALOG-MESSAGE-TEXT":
-                this._state.dialogsPage.newDialogMessageText = action.newText
+            case UPDATE_NEW_MESSAGE_BODY:
+                this._state.dialogsPage.newMessageBody = action.body
                 this._callSubscriber(this._state)
                 break;
             default:

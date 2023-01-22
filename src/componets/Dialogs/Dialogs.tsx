@@ -1,15 +1,14 @@
-import React, {RefObject} from "react";
+import React, {KeyboardEvent, RefObject} from "react";
 import classes from "./Dialogs.module.css";
 import {DialogItem} from "./Dialogitem/DialogItem";
 import {Message} from "./Dialogitem/Message/Message";
 import {
     ActionTypes,
-    addDialogMessage,
+    sendMessageCreator,
     DialogsPropsType,
     MessagesPropsType,
-    updateNewDialogMessageTextActionCreator
+    updateNewMessageBodyCreator
 } from "../../redux/state";
-import ReactDOM from "react-dom";
 
 
 type PropsType = {
@@ -17,9 +16,9 @@ type PropsType = {
         {
             dialogs: DialogsPropsType[]
             messages: MessagesPropsType[]
-            newDialogMessageText: string
+            newMessageBody: string
         }
-        dispatch: (action: ActionTypes) => void
+    dispatch: (action: ActionTypes) => void
 }
 
 export const Dialogs: React.FC<PropsType> = ({dialogPage, dispatch}) => {
@@ -27,16 +26,22 @@ export const Dialogs: React.FC<PropsType> = ({dialogPage, dispatch}) => {
     let dialogsElements = dialogPage.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>);
     let messagesElements = dialogPage.messages.map(message => <Message id={message.id} message={message.message}/>);
 
-    const newMessageElement:RefObject<HTMLTextAreaElement> = React.createRef()
+    const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
     const onMessageChange = () => {
         if (newMessageElement.current) {
-            dispatch(updateNewDialogMessageTextActionCreator(newMessageElement.current.value))
+            dispatch(updateNewMessageBodyCreator(newMessageElement.current.value))
+        }
+    }
+
+    const onKeyUpAddMessage = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            addMessage()
         }
     }
 
     const addMessage = () => {
-        dispatch(addDialogMessage())
+        dispatch(sendMessageCreator())
     }
 
     return (
@@ -45,9 +50,14 @@ export const Dialogs: React.FC<PropsType> = ({dialogPage, dispatch}) => {
                 {dialogsElements}
             </div>
             <div className={classes.messages}>
-                {messagesElements}
                 <div>
-                    <textarea ref={newMessageElement} value={dialogPage.newDialogMessageText} onChange={onMessageChange}></textarea>
+                    {messagesElements}
+                </div>
+                <div>
+                    <textarea ref={newMessageElement}
+                              value={dialogPage.newMessageBody}
+                              onChange={onMessageChange}
+                              onKeyUp={onKeyUpAddMessage} placeholder={'Enter your message'} ></textarea>
                     <button onClick={addMessage}>add</button>
                 </div>
             </div>
