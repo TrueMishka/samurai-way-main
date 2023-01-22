@@ -1,9 +1,8 @@
 // store - OOP
 
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const SEND_MESSAGE = 'SEND-MESSAGE';
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+import profileReducer, {addPostCreator, updateNewPostTextCreator} from "./profile-reducer";
+import dialogsReducer, {sendMessageCreator, updateNewMessageBodyCreator} from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 export type PostDataType = {
     id: number
@@ -49,24 +48,6 @@ export type ActionTypes = ReturnType<typeof addPostCreator>
     | ReturnType<typeof sendMessageCreator>
     | ReturnType<typeof updateNewMessageBodyCreator>
 
-export const addPostCreator = () => ({
-    type: ADD_POST
-} as const)
-
-export const updateNewPostTextCreator = (postText: string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: postText
-} as const)
-
-export const sendMessageCreator = () => ({
-    type: SEND_MESSAGE
-} as const)
-
-export const updateNewMessageBodyCreator = (messageText: string) => ({
-    type: UPDATE_NEW_MESSAGE_BODY,
-    body: messageText
-} as const)
-
 export const store: StoreType = {
     _state: {
         profilePage: {
@@ -74,7 +55,7 @@ export const store: StoreType = {
                 {id: 1, message: 'Hello World', likesCount: 15},
                 {id: 2, message: 'Goodbye World', likesCount: 23},
             ],
-            newPostText: 'it-kamastutra'
+            newPostText: ''
         },
         dialogsPage: {
             dialogs: [
@@ -111,38 +92,10 @@ export const store: StoreType = {
         console.log('state changed')
     },
     dispatch(action) {
-        switch (action.type) {
-            case ADD_POST:
-                if (this._state.profilePage.newPostText.trim()) {
-                    const newPost: PostDataType = {
-                        id: new Date().getTime(),
-                        message: this._state.profilePage.newPostText.trim(),
-                        likesCount: 0
-                    }
-                    this._state.profilePage.posts.push(newPost)
-                    this._state.profilePage.newPostText = ''
-                    this._callSubscriber(this._state)
-                }
-                break;
-            case UPDATE_NEW_POST_TEXT:
-                this._state.profilePage.newPostText = action.newText
-                this._callSubscriber(this._state)
-                break;
-            case SEND_MESSAGE:
-                const newMessage: MessagesPropsType = {
-                    id: new Date().getTime(),
-                    message: this._state.dialogsPage.newMessageBody
-                }
-                this._state.dialogsPage.messages.push(newMessage)
-                this._state.dialogsPage.newMessageBody = ''
-                this._callSubscriber(this._state)
-                break;
-            case UPDATE_NEW_MESSAGE_BODY:
-                this._state.dialogsPage.newMessageBody = action.body
-                this._callSubscriber(this._state)
-                break;
-            default:
-                console.log('Something go wrong')
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
+        this._callSubscriber(this._state)
     }
 }

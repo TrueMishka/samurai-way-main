@@ -1,7 +1,8 @@
 import React, {RefObject, KeyboardEvent} from "react";
 import {Post} from "./Post/Post";
 import classes from "./MyPosts.module.css";
-import {ActionTypes, addPostCreator, PostDataType, updateNewPostTextCreator} from "../../../redux/state";
+import {ActionTypes, PostDataType} from "../../../redux/state";
+import {addPostCreator, updateNewPostTextCreator} from "../../../redux/profile-reducer";
 
 type propsType = {
     postData: PostDataType[]
@@ -10,7 +11,8 @@ type propsType = {
 }
 export const MyPosts: React.FC<propsType> = ({postData, newPostText, dispatch}) => {
 
-    const postsElements = postData.map(p => <div key={p.id}><Post id={p.id} message={p.message} likesCount={p.likesCount}/></div>)
+    const postsElements = postData.map(p => <div key={p.id}><Post id={p.id} message={p.message}
+                                                                  likesCount={p.likesCount}/></div>)
     const newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const onClickAddPost = () => {
@@ -39,7 +41,8 @@ export const MyPosts: React.FC<propsType> = ({postData, newPostText, dispatch}) 
                     <textarea ref={newPostElement}
                               value={newPostText}
                               onChange={onPostChange}
-                              onKeyUp={onKeyUpAddPost}/>
+                              onKeyUp={onKeyUpAddPost}
+                              placeholder={'Enter new post'}/>
                 </div>
                 <div>
                     <button onClick={onClickAddPost}>Add post</button>

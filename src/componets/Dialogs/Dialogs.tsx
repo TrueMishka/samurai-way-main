@@ -4,11 +4,10 @@ import {DialogItem} from "./Dialogitem/DialogItem";
 import {Message} from "./Dialogitem/Message/Message";
 import {
     ActionTypes,
-    sendMessageCreator,
     DialogsPropsType,
-    MessagesPropsType,
-    updateNewMessageBodyCreator
+    MessagesPropsType
 } from "../../redux/state";
+import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 
 
 type PropsType = {
