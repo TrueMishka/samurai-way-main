@@ -8,7 +8,7 @@ type StateType = {
     newPostText: string
 }
 
-const profileReducer = (state: StateType, action: ActionTypes): any => {
+const profileReducer = (state: StateType, action: ActionTypes): StateType => {
     switch (action.type) {
         case ADD_POST:
             if (state.newPostText.trim()) {

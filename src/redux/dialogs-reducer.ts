@@ -9,7 +9,7 @@ type StateType = {
     newMessageBody: string
 }
 
-const dialogsReducer = (state: StateType, action: ActionTypes): any => {
+const dialogsReducer = (state: StateType, action: ActionTypes): StateType => {
 
     switch (action.type) {
         case SEND_MESSAGE:
