@@ -15,11 +15,11 @@ type ProfilePageType = {
     dispatch: (action: ActionTypes) => void*/
 }
 
-export const Profile:React.FC<ProfilePageType> = ({store}) => {
+export const Profile= () => {
     return (
         <div className={classes.profile}>
             <ProfileInfo/>
-            <MyPostsContainer store={store}/>
+            <MyPostsContainer/>
         </div>
     );
 }

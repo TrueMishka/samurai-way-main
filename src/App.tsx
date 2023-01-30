@@ -20,17 +20,15 @@ type PropsType = {
     /*store: ReturnType<typeof store>*/
 }
 
-const App: React.FC<PropsType> = ({store}) => {
-    const state = store.getState()
-
+const App = () => {
     return (
         <BrowserRouter>
             <div className={'app-wrapper'}>
                 <Header/>
-                <Navbar friends={state.sidebar.friends}/>
+                <Navbar />
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/profile'} render={() => <Profile store={store}/>}/>
-                    <Route path={'/dialogs'} render={() => <DialogsContainer store={store}/>}/>
+                    <Route path={'/profile'} render={() => <Profile/>}/>
+                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>

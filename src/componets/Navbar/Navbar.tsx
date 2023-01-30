@@ -8,7 +8,7 @@ type PropsType = {
     friends: FriendsType[]
 }
 
-export const Navbar:React.FC<PropsType> = ({friends}) => {
+export const Navbar = () => {
     return (
         <div className={classes.nav}>
             <nav>
@@ -28,9 +28,9 @@ export const Navbar:React.FC<PropsType> = ({friends}) => {
                     <NavLink to={'/settings'} activeClassName={classes.active}>Settings</NavLink>
                 </div>
             </nav>
-            <div className={classes.item}>
+            {/*<div className={classes.item}>
                 <Friends friends={friends}/>
-            </div>
+            </div>*/}
         </div>
     );
 }

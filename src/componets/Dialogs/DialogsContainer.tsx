@@ -9,25 +9,33 @@ import {
 } from "../../redux/store";
 import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
+import {StoreContext} from "../../StoreContext";
 
 
 type PropsType = {
     store: any
 }
 
-export const DialogsContainer: React.FC<PropsType> = ({store}) => {
-
-    const state = store.getState().dialogsPage
-
-    const onMessageChange = (newTextMessage: string) => {
-            store.dispatch(updateNewMessageBodyCreator(newTextMessage))
-    }
-
-    const onAddMessage = () => {
-        store.dispatch(sendMessageCreator())
-    }
+export const DialogsContainer = () => {
 
     return (
-        <Dialogs dialogPage={state} updateNewMessageBody={onMessageChange} sendMessage={onAddMessage}/>
+        <StoreContext.Consumer>
+            {
+                (store: any) => {
+                    const state = store.getState().dialogsPage
+
+                    const onMessageChange = (newTextMessage: string) => {
+                        store.dispatch(updateNewMessageBodyCreator(newTextMessage))
+                    }
+
+                    const onAddMessage = () => {
+                        store.dispatch(sendMessageCreator())
+                    }
+                    return <Dialogs dialogPage={state} updateNewMessageBody={onMessageChange}
+                                    sendMessage={onAddMessage}/>
+                }
+            }
+        </StoreContext.Consumer>
+
     );
 }
