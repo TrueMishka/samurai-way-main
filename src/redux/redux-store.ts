@@ -2,6 +2,7 @@ import {combineReducers, createStore} from "redux";
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
+import {StoreType} from "./store";
 
 const reducers = combineReducers({
     profilePage: profileReducer,
@@ -9,5 +10,4 @@ const reducers = combineReducers({
     sidebar: sidebarReducer,
 })
 
-export const store = createStore(reducers)
-/*export type ReduxStoreType = ReturnType<typeof store.getState>*/
+export const store: StoreType = createStore(reducers)

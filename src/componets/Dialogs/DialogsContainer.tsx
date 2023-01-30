@@ -1,23 +1,9 @@
-import React, {KeyboardEvent, RefObject} from "react";
-import classes from "./Dialogs.module.css";
-import {DialogItem} from "./Dialogitem/DialogItem";
-import {Message} from "./Dialogitem/Message/Message";
-import {
-    ActionTypes,
-    DialogsPropsType,
-    MessagesPropsType
-} from "../../redux/store";
+import React from "react";
 import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {StoreContext} from "../../StoreContext";
 
-
-type PropsType = {
-    store: any
-}
-
 export const DialogsContainer = () => {
-
     return (
         <StoreContext.Consumer>
             {
@@ -36,6 +22,5 @@ export const DialogsContainer = () => {
                 }
             }
         </StoreContext.Consumer>
-
     );
 }

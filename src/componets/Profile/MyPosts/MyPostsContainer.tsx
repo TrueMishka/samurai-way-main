@@ -3,9 +3,6 @@ import {addPostCreator, updateNewPostTextCreator} from "../../../redux/profile-r
 import {MyPosts} from "./MyPosts";
 import {StoreContext} from "../../../StoreContext";
 
-type propsType = {
-    store: any
-}
 export const MyPostsContainer = () => {
     return (
         <StoreContext.Consumer>

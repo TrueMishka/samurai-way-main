@@ -5,16 +5,6 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ActionTypes, PostDataType} from "../../redux/store";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
-
-type ProfilePageType = {
-    store: any
-/*    profilePage: {
-        posts: PostDataType[]
-        newPostText: string
-    }
-    dispatch: (action: ActionTypes) => void*/
-}
-
 export const Profile= () => {
     return (
         <div className={classes.profile}>
