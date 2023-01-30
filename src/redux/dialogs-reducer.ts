@@ -1,4 +1,4 @@
-import {ActionTypes, DialogsPropsType, MessagesPropsType} from "./state";
+import {ActionTypes, DialogsPropsType, MessagesPropsType} from "./store";
 
 const SEND_MESSAGE = 'SEND-MESSAGE';
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
@@ -9,7 +9,25 @@ type StateType = {
     newMessageBody: string
 }
 
-const dialogsReducer = (state: StateType, action: ActionTypes): StateType => {
+const initialState: StateType = {
+    dialogs: [
+        {id: 1, name: 'Mishka'},
+        {id: 2, name: 'Vizix'},
+        {id: 3, name: 'Kibot'},
+        {id: 4, name: 'Burn'},
+        {id: 5, name: 'Zveklas'}
+    ],
+    messages: [
+        {id: 1, message: 'Hi'},
+        {id: 2, message: 'How are you?'},
+        {id: 3, message: 'Yo'},
+        {id: 4, message: 'Yo-Yo'},
+        {id: 5, message: 'UwU'}
+    ],
+    newMessageBody: ''
+}
+
+const dialogsReducer = (state: StateType = initialState, action: ActionTypes): StateType => {
 
     switch (action.type) {
         case SEND_MESSAGE:

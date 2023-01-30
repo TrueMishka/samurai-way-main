@@ -8,11 +8,15 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./componets/News/News";
 import {Music} from "./componets/Music/Music";
 import {Settings} from "./componets/Settings/Settings";
-import {StoreType} from "./redux/state";
-
 
 type PropsType = {
-    store: StoreType
+    store: any
+/*    store: {
+        getState: () => RootStateType
+        subscribe: (observer: () => void) => void
+        dispatch: (action: ActionTypes) => void
+    }*/
+    /*store: ReturnType<typeof store>*/
 }
 
 const App: React.FC<PropsType> = ({store}) => {
@@ -24,8 +28,7 @@ const App: React.FC<PropsType> = ({store}) => {
                 <Header/>
                 <Navbar friends={state.sidebar.friends}/>
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/profile'} render={() => <Profile profilePage={state.profilePage}
-                                                                    dispatch={store.dispatch.bind(store)}/>}/>
+                    <Route path={'/profile'} render={() => <Profile store={store}/>}/>
                     <Route path={'/dialogs'} render={() => <Dialogs dialogPage={state.dialogsPage}
                                                                     dispatch={store.dispatch.bind(store)}/>}/>
                     <Route path={'/news'} component={News}/>

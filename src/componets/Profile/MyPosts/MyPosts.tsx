@@ -1,23 +1,28 @@
-import React, {RefObject, KeyboardEvent} from "react";
+import React, {KeyboardEvent} from "react";
 import {Post} from "./Post/Post";
 import classes from "./MyPosts.module.css";
-import {ActionTypes, PostDataType} from "../../../redux/state";
-import {addPostCreator, updateNewPostTextCreator} from "../../../redux/profile-reducer";
+import {PostDataType} from "../../../redux/store";
 
 type propsType = {
     postData: PostDataType[]
     newPostText: string
-    dispatch: (action: ActionTypes) => void
+    addPost: () => void
+    updateNewPostText: (newPostText: string) => void
 }
-export const MyPosts: React.FC<propsType> = ({postData, newPostText, dispatch}) => {
+export const MyPosts: React.FC<propsType> = ({postData, newPostText, addPost, updateNewPostText}) => {
 
-    const postsElements = postData.map(p => <div key={p.id}><Post id={p.id} message={p.message}
-                                                                  likesCount={p.likesCount}/></div>)
+    const postsElements = postData.map(p => {
+        return <div key={p.id}>
+            <Post id={p.id}
+                  message={p.message}
+                  likesCount={p.likesCount}/>
+        </div>
+    })
     const newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const onClickAddPost = () => {
         if (newPostElement.current) {
-            dispatch(addPostCreator())
+            addPost()
         }
     }
 
@@ -29,7 +34,7 @@ export const MyPosts: React.FC<propsType> = ({postData, newPostText, dispatch}) 
 
     const onPostChange = () => {
         if (newPostElement.current) {
-            dispatch(updateNewPostTextCreator(newPostElement.current.value))
+            updateNewPostText(newPostElement.current.value)
         }
     }
 

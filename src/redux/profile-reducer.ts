@@ -1,4 +1,4 @@
-import {ActionTypes, PostDataType} from "./state";
+import {ActionTypes, PostDataType} from "./store";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -8,7 +8,15 @@ type StateType = {
     newPostText: string
 }
 
-const profileReducer = (state: StateType, action: ActionTypes): StateType => {
+const initialState: StateType = {
+    posts: [
+        {id: 1, message: 'Hello World', likesCount: 15},
+        {id: 2, message: 'Goodbye World', likesCount: 23},
+    ],
+    newPostText: ''
+}
+
+const profileReducer = (state: StateType = initialState, action: ActionTypes): StateType => {
     switch (action.type) {
         case ADD_POST:
             if (state.newPostText.trim()) {
