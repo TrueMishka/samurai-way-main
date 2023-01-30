@@ -8,6 +8,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./componets/News/News";
 import {Music} from "./componets/Music/Music";
 import {Settings} from "./componets/Settings/Settings";
+import {DialogsContainer} from "./componets/Dialogs/DialogsContainer";
 
 type PropsType = {
     store: any
@@ -29,8 +30,7 @@ const App: React.FC<PropsType> = ({store}) => {
                 <Navbar friends={state.sidebar.friends}/>
                 <div className={'app-wrapper-content'}>
                     <Route path={'/profile'} render={() => <Profile store={store}/>}/>
-                    <Route path={'/dialogs'} render={() => <Dialogs dialogPage={state.dialogsPage}
-                                                                    dispatch={store.dispatch.bind(store)}/>}/>
+                    <Route path={'/dialogs'} render={() => <DialogsContainer store={store}/>}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>

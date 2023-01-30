@@ -3,11 +3,9 @@ import classes from "./Dialogs.module.css";
 import {DialogItem} from "./Dialogitem/DialogItem";
 import {Message} from "./Dialogitem/Message/Message";
 import {
-    ActionTypes,
     DialogsPropsType,
     MessagesPropsType
 } from "../../redux/store";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 
 
 type PropsType = {
@@ -17,10 +15,11 @@ type PropsType = {
             messages: MessagesPropsType[]
             newMessageBody: string
         }
-    dispatch: (action: ActionTypes) => void
+    updateNewMessageBody: (newTextMessage: string) => void
+    sendMessage: () => void
 }
 
-export const Dialogs: React.FC<PropsType> = ({dialogPage, dispatch}) => {
+export const Dialogs: React.FC<PropsType> = ({dialogPage, updateNewMessageBody, sendMessage}) => {
 
     let dialogsElements = dialogPage.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>);
     let messagesElements = dialogPage.messages.map(message => <Message id={message.id} message={message.message}/>);
@@ -29,18 +28,18 @@ export const Dialogs: React.FC<PropsType> = ({dialogPage, dispatch}) => {
 
     const onMessageChange = () => {
         if (newMessageElement.current) {
-            dispatch(updateNewMessageBodyCreator(newMessageElement.current.value))
+            updateNewMessageBody(newMessageElement.current.value)
         }
     }
 
     const onKeyUpAddMessage = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && e.ctrlKey) {
-            addMessage()
+            addMessageHandler()
         }
     }
 
-    const addMessage = () => {
-        dispatch(sendMessageCreator())
+    const addMessageHandler = () => {
+        sendMessage()
     }
 
     return (
@@ -57,7 +56,7 @@ export const Dialogs: React.FC<PropsType> = ({dialogPage, dispatch}) => {
                               value={dialogPage.newMessageBody}
                               onChange={onMessageChange}
                               onKeyUp={onKeyUpAddMessage} placeholder={'Enter your message'} ></textarea>
-                    <button onClick={addMessage}>add</button>
+                    <button onClick={addMessageHandler}>add</button>
                 </div>
             </div>
         </div>
