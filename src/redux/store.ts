@@ -43,7 +43,7 @@ type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export type ActionTypes = ReturnType<typeof addPostCreator>
+type ActionTypes = ReturnType<typeof addPostCreator>
     | ReturnType<typeof updateNewPostTextCreator>
     | ReturnType<typeof sendMessageCreator>
     | ReturnType<typeof updateNewMessageBodyCreator>
