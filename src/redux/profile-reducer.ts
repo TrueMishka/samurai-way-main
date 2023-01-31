@@ -1,22 +1,25 @@
-import {ActionTypes, PostDataType} from "./store";
+import {ActionTypes} from "./store";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-type StateType = {
-    posts: PostDataType[]
-    newPostText: string
+export type PostDataType = {
+    id: number
+    message: string
+    likesCount: number
 }
 
-const initialState: StateType = {
+const initialState = {
     posts: [
         {id: 1, message: 'Hello World', likesCount: 15},
         {id: 2, message: 'Goodbye World', likesCount: 23},
-    ],
+    ] as PostDataType[],
     newPostText: ''
 }
 
-const profileReducer = (state: StateType = initialState, action: ActionTypes): StateType => {
+export type InitialStateType = typeof initialState
+
+const profileReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
         case ADD_POST:
             if (state.newPostText.trim()) {
@@ -25,13 +28,11 @@ const profileReducer = (state: StateType = initialState, action: ActionTypes): S
                     message: state.newPostText.trim(),
                     likesCount: 0
                 }
-                state.posts.push(newPost)
-                state.newPostText = ''
+                return {...state, posts: [...state.posts, newPost], newPostText: ''}
             }
             return state
         case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText
-            return state
+            return {...state, newPostText: action.newText}
         default:
             return state
     }

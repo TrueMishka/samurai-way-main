@@ -1,9 +1,9 @@
 import React from 'react';
-import {FriendsType} from "../../../redux/store";
 import classes from "./Friends.module.css";
+import {FriendType} from "../../../redux/sidebar-reducer";
 
 type PropsType = {
-    friends: FriendsType[]
+    friends: FriendType[]
 }
 
 export const Friends: React.FC<PropsType> = ({friends}) => {

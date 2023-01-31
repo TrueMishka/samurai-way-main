@@ -4,24 +4,24 @@ import profileReducer, {addPostCreator, updateNewPostTextCreator} from "./profil
 import dialogsReducer, {sendMessageCreator, updateNewMessageBodyCreator} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
-export type PostDataType = {
+type PostDataType = {
     id: number
     message: string
     likesCount: number
 }
-export type DialogsPropsType = {
+type DialogsPropsType = {
     id: number
     name: string
 }
-export type MessagesPropsType = {
+type MessagesPropsType = {
     id: number
     message: string
 }
-export type FriendsType = {
+type FriendsType = {
     id: number
     name: string
 }
-export type RootStateType = {
+type RootStateType = {
     profilePage: {
         posts: PostDataType[]
         newPostText: string
@@ -35,7 +35,7 @@ export type RootStateType = {
         friends: FriendsType[]
     }
 }
-export type StoreType = {
+type StoreType = {
     _state: RootStateType
     _callSubscriber: (rootState: RootStateType) => void
     getState: () => RootStateType
@@ -48,7 +48,7 @@ export type ActionTypes = ReturnType<typeof addPostCreator>
     | ReturnType<typeof sendMessageCreator>
     | ReturnType<typeof updateNewMessageBodyCreator>
 
-export const store: StoreType = {
+const store: StoreType = {
     _state: {
         profilePage: {
             posts: [

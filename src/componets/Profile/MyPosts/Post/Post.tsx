@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./Post.module.css";
-import {PostDataType} from "../../../../redux/store";
-
+import {PostDataType} from "../../../../redux/profile-reducer";
 
 
 export const Post = (props: PostDataType) => {

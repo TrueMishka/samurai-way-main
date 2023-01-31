@@ -1,17 +1,16 @@
 import React, {KeyboardEvent} from "react";
 import {Post} from "./Post/Post";
 import classes from "./MyPosts.module.css";
-import {PostDataType} from "../../../redux/store";
+import {InitialStateType, PostDataType} from "../../../redux/profile-reducer";
 
-type propsType = {
-    postData: PostDataType[]
-    newPostText: string
+type PropsType = {
+    profilePage: InitialStateType
     addPost: () => void
     updateNewPostText: (newPostText: string) => void
 }
-export const MyPosts: React.FC<propsType> = ({postData, newPostText, addPost, updateNewPostText}) => {
+export const MyPosts: React.FC<PropsType> = ({profilePage, addPost, updateNewPostText}) => {
 
-    const postsElements = postData.map(p => {
+    const postsElements = profilePage.posts.map(p => {
         return <div key={p.id}>
             <Post id={p.id}
                   message={p.message}
@@ -44,7 +43,7 @@ export const MyPosts: React.FC<propsType> = ({postData, newPostText, addPost, up
             <div>
                 <div>
                     <textarea ref={newPostElement}
-                              value={newPostText}
+                              value={profilePage.newPostText}
                               onChange={onPostChange}
                               onKeyUp={onKeyUpAddPost}
                               placeholder={'Enter new post'}/>

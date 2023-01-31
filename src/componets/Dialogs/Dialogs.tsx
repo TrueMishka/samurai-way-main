@@ -2,27 +2,18 @@ import React, {KeyboardEvent, RefObject} from "react";
 import classes from "./Dialogs.module.css";
 import {DialogItem} from "./Dialogitem/DialogItem";
 import {Message} from "./Dialogitem/Message/Message";
-import {
-    DialogsPropsType,
-    MessagesPropsType
-} from "../../redux/store";
-
+import {InitialStateType} from "../../redux/dialogs-reducer";
 
 type PropsType = {
-    dialogPage:
-        {
-            dialogs: DialogsPropsType[]
-            messages: MessagesPropsType[]
-            newMessageBody: string
-        }
+    dialogsPage: InitialStateType
     updateNewMessageBody: (newTextMessage: string) => void
     sendMessage: () => void
 }
 
-export const Dialogs: React.FC<PropsType> = ({dialogPage, updateNewMessageBody, sendMessage}) => {
+export const Dialogs: React.FC<PropsType> = ({dialogsPage, updateNewMessageBody, sendMessage}) => {
 
-    let dialogsElements = dialogPage.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>);
-    let messagesElements = dialogPage.messages.map(message => <Message id={message.id} message={message.message}/>);
+    let dialogsElements = dialogsPage.dialogs.map(dialog => <DialogItem key={dialog.id} id={dialog.id} name={dialog.name}/>);
+    let messagesElements = dialogsPage.messages.map(message => <Message key={message.id} id={message.id} message={message.message}/>);
 
     const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
@@ -53,9 +44,9 @@ export const Dialogs: React.FC<PropsType> = ({dialogPage, updateNewMessageBody, 
                 </div>
                 <div>
                     <textarea ref={newMessageElement}
-                              value={dialogPage.newMessageBody}
+                              value={dialogsPage.newMessageBody}
                               onChange={onMessageChange}
-                              onKeyUp={onKeyUpAddMessage} placeholder={'Enter your message'} ></textarea>
+                              onKeyUp={onKeyUpAddMessage} placeholder={'Enter your message'}></textarea>
                     <button onClick={addMessageHandler}>add</button>
                 </div>
             </div>
