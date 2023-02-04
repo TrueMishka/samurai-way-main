@@ -5,15 +5,15 @@ const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 
 export type UserDataType = {
+    name: string
     id: number
-    fullName: string
-    followed: boolean
-    photoUrl: string
-    status: string
-    location: {
-        country: string
-        city: string
+    uniqueUrlName: string | undefined
+    photos: {
+        small: string | undefined
+        large: string | undefined
     }
+    status: string | undefined
+    followed: boolean
 }
 
 const initialState = {
