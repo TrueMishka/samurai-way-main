@@ -15,18 +15,15 @@ type UsersPropsType = {
 /*
 export const Users: React.FC<UsersPropsType> = ({usersPage, follow, unfollow, setUsers}) => {
 
-    const getUsers = () => {
-        if (usersPage.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+    useEffect(() => {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
                 .then(response => {
                     setUsers(response.data.items)
                 })
-        }
-    }
+    },[])
 
     return (
         <div>
-            <button onClick={getUsers}>Get users</button>
             {usersPage.users.map(u => <div key={u.id}>
                 <span>
                     <div>
@@ -59,19 +56,20 @@ export const Users: React.FC<UsersPropsType> = ({usersPage, follow, unfollow, se
 //Class component
 export class Users extends React.Component<UsersPropsType> {
 
-    getUsers = () => {
-        if (this.props.usersPage.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    this.props.setUsers(response.data.items)
-                })
-        }
+    /*constructor(props: UsersPropsType) {
+        super(props);
+    }*/
+
+    componentDidMount() {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
     }
 
     render() {
         return (
             <div>
-                <button onClick={this.getUsers}>Get users</button>
                 {this.props.usersPage.users.map(u => <div key={u.id}>
                 <span>
                     <div>
