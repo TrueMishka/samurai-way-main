@@ -61,7 +61,7 @@ export class Users extends React.Component<UsersPropsType> {
     }*/
 
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        axios.get('https://social-network.samuraijs.com/api/1.0/users?count=1')
             .then(response => {
                 this.props.setUsers(response.data.items)
             })
@@ -70,6 +70,13 @@ export class Users extends React.Component<UsersPropsType> {
     render() {
         return (
             <div>
+                <div>
+                    <span>1</span>
+                    <span className={classes.selectedPage}>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                </div>
                 {this.props.usersPage.users.map(u => <div key={u.id}>
                 <span>
                     <div>
