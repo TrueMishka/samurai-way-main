@@ -1,38 +1,48 @@
 import React from 'react';
-import {InitialStateType, UserDataType} from "../../redux/users-reducer";
 import classes from "./Users.module.css";
-import userPhoto from '../../assets/images/user.png'
-import axios from 'axios'
+import userPhoto from "../../assets/images/user.png";
+import {UserDataType} from "../../redux/users-reducer";
 
 type UsersPropsType = {
-    usersPage: InitialStateType
+    users: UserDataType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUsers: (users: UserDataType[]) => void
+    pageChanged: (currentPage: number) => void
 }
 
-//Function component
-/*
-export const Users: React.FC<UsersPropsType> = ({usersPage, follow, unfollow, setUsers}) => {
+export const Users: React.FC<UsersPropsType> = (props) => {
 
-    useEffect(() => {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    setUsers(response.data.items)
-                })
-    },[])
+    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    const pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
+    }
 
     return (
         <div>
-            {usersPage.users.map(u => <div key={u.id}>
+            <div className={classes.pages}>
+                {pages.map(p => {
+                    return <span
+                        key={p}
+                        className={props.currentPage === p ? classes.selectedPage : ''}
+                        onClick={() => props.pageChanged(p)}
+                    >
+                            {p}
+                        </span>
+                })}
+            </div>
+            {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
                         <img className={classes.userPhoto} src={u.photos.small ? u.photos.small : userPhoto}/>
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => unfollow(u.id)}>Unfollow</button>
-                            : <button onClick={() => follow(u.id)}>Follow</button>}
+                            ? <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
+                            : <button onClick={() => props.follow(u.id)}>Follow</button>}
                     </div>
                 </span>
                 <span>
@@ -50,57 +60,3 @@ export const Users: React.FC<UsersPropsType> = ({usersPage, follow, unfollow, se
         </div>
     );
 };
-*/
-
-
-//Class component
-export class Users extends React.Component<UsersPropsType> {
-
-    /*constructor(props: UsersPropsType) {
-        super(props);
-    }*/
-
-    componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users?count=1')
-            .then(response => {
-                this.props.setUsers(response.data.items)
-            })
-    }
-
-    render() {
-        return (
-            <div>
-                <div>
-                    <span>1</span>
-                    <span className={classes.selectedPage}>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                </div>
-                {this.props.usersPage.users.map(u => <div key={u.id}>
-                <span>
-                    <div>
-                        <img className={classes.userPhoto} src={u.photos.small ? u.photos.small : userPhoto}/>
-                    </div>
-                    <div>
-                        {u.followed
-                            ? <button onClick={() => this.props.unfollow(u.id)}>Unfollow</button>
-                            : <button onClick={() => this.props.follow(u.id)}>Follow</button>}
-                    </div>
-                </span>
-                    <span>
-                    <span>
-                        <div>{u.name}</div>
-                        <div>{u.status}</div>
-                    </span>
-                    <span>
-                        <div>{'u.location.country'}</div>
-                        <div>{'u.location.city'}</div>
-                    </span>
-                    <span></span>
-                </span>
-                </div>)}
-            </div>
-        );
-    }
-}
