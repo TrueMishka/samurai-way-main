@@ -1,11 +1,15 @@
 import React from "react";
-import {addPostCreator, InitialStateType, updateNewPostTextCreator} from "../../../redux/profile-reducer";
+import {
+    addPostCreator,
+    ProfilePageStateType,
+    updateNewPostTextCreator
+} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 
 type MapStatePropsType = {
-    profilePage: InitialStateType
+    profilePage: ProfilePageStateType
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
