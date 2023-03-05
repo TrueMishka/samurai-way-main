@@ -5,9 +5,8 @@ import sidebarReducer from "./sidebar-reducer";
 import usersReducer, {
     follow,
     setCurrentPage,
-    setIsFetching,
     setTotalUsersCount,
-    setUsers,
+    setUsers, toggleFollowingProgress, toggleIsFetching,
     unfollow
 } from "./users-reducer";
 import authReducer, {setUserData} from "./auth-reducer";
@@ -20,9 +19,10 @@ export type ActionTypes = ReturnType<typeof addPostCreator>
     | ReturnType<typeof follow>
     | ReturnType<typeof unfollow>
     | ReturnType<typeof setUsers>
+    | ReturnType<typeof toggleFollowingProgress>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
-    | ReturnType<typeof setIsFetching>
+    | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserData>
 
 const rootReducer = combineReducers({
