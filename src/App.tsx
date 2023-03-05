@@ -10,12 +10,14 @@ import {Settings} from "./componets/Settings/Settings";
 import {DialogsContainer} from "./componets/Dialogs/DialogsContainer";
 import {UsersContainer} from "./componets/Users/UsersContainer";
 import ProfileContainer from "./componets/Profile/ProfileContainer";
+import HeaderContainer from "./componets/Header/HeaderContainer";
 
 const App = () => {
     return (
         <BrowserRouter>
             <div className={'app-wrapper'}>
-                <Header/>
+                <HeaderContainer/>
+                {/*<Header/>*/}
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
                     {/*<Route exact path={'/'} render={() => <ProfileContainer/>}/>*/}

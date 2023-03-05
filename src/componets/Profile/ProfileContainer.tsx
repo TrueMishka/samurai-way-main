@@ -31,7 +31,7 @@ class ProfileContainer extends React.Component<PropsType> {
             <Profile {...this.props} profile={this.props.profile}/>
         );
     }
-};
+}
 
 const mapStateToProps = (state: AppStateType): MapStateProfilePropsType => {
     return {
