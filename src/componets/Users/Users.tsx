@@ -3,6 +3,14 @@ import classes from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {UserDataType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import {API} from "../../api/api";
+
+const settings = {
+    withCredentials: true,
+    header: {
+        'API-KEY': '8014b026-2d5d-4013-8837-120f27334da7'
+    }
+}
 
 type UsersPropsType = {
     users: UserDataType[]
@@ -20,6 +28,24 @@ export const Users: React.FC<UsersPropsType> = (props) => {
     const pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
+    }
+
+    const onClickFollow = (userId: number) => {
+        API.followAPI.follow(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    props.follow(userId)
+                }
+            })
+    }
+
+    const onClickUnfollow = (userId: number) => {
+        API.followAPI.unfollow(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    props.unfollow(userId)
+                }
+            })
     }
 
     return (
@@ -44,8 +70,8 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
-                            : <button onClick={() => props.follow(u.id)}>Follow</button>}
+                            ? <button onClick={() => onClickUnfollow(u.id)}>Unfollow</button>
+                            : <button onClick={() => onClickFollow(u.id)}>Follow</button>}
                     </div>
                 </span>
                 <span>
