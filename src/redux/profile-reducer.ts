@@ -1,4 +1,5 @@
 import {ActionTypes} from "./redux-store";
+import axios from "axios";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -64,11 +65,22 @@ const profileReducer = (state: ProfilePageStateType = initialState, action: Acti
     }
 }
 
+// ActionCreators
 export const addPostCreator = () => ({type: ADD_POST} as const)
 export const updateNewPostTextCreator = (postText: string) => ({
     type: UPDATE_NEW_POST_TEXT,
     newText: postText
 } as const)
 export  const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
+
+// ThunkCreators
+export const showUserProfile = (userId: string) => {
+    return (dispatch: any) => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+    }
+}
 
 export default profileReducer
