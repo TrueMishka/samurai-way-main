@@ -31,7 +31,7 @@ const authReducer = (state: AuthStateType = initialState, action: ActionTypes): 
 }
 
 // ActionCreators
-export const setUserData = (userId: number, email: string, login: string) => {
+export const setAuthUserData = (userId: number, email: string, login: string) => {
     return {
         type: SET_USER_DATA,
         data: {userId, email, login}
@@ -39,13 +39,13 @@ export const setUserData = (userId: number, email: string, login: string) => {
 }
 
 // ThunkCreators
-export const userAuthentication = () => {
+export const getAuthUserData = () => {
     return (dispatch: any) => {
         API.authAPI.auth()
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, email, login} = data.data
-                    dispatch(setUserData(id, email, login))
+                    dispatch(setAuthUserData(id, email, login))
                 }
             })
     }

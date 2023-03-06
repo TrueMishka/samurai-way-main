@@ -74,7 +74,7 @@ export const updateNewPostTextCreator = (postText: string) => ({
 export  const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
 
 // ThunkCreators
-export const showUserProfile = (userId: string) => {
+export const getUserProfile = (userId: string) => {
     return (dispatch: any) => {
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(response => {

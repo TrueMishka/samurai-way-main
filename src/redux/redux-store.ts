@@ -12,7 +12,7 @@ import usersReducer, {
     toggleFollowingProgress,
     toggleIsFetching
 } from "./users-reducer";
-import authReducer, {setUserData} from "./auth-reducer";
+import authReducer, {setAuthUserData} from "./auth-reducer";
 
 export type ActionTypes = ReturnType<typeof addPostCreator>
     | ReturnType<typeof updateNewPostTextCreator>
@@ -26,7 +26,7 @@ export type ActionTypes = ReturnType<typeof addPostCreator>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
-    | ReturnType<typeof setUserData>
+    | ReturnType<typeof setAuthUserData>
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
