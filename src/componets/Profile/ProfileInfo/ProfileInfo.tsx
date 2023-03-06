@@ -23,7 +23,9 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                 {props.profile.photos
                     ? <img src={props.profile.photos.large}/>
                     : <PreLoader/>}
-                ava + description
+                <div>{`Name: ${props.profile.fullName}`}</div>
+                <div>{`About: ${props.profile.aboutMe}`}</div>
+                <div>{`id: ${props.profile.userId}`}</div>
             </div>
         </div>
     );

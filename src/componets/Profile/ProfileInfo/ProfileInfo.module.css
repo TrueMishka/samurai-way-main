@@ -13,5 +13,11 @@
 }
 
 .descriptionBlock {
+    display: flex;
+    flex-direction: column;
     padding: 10px;
+}
+.descriptionBlock img {
+    width: 200px;
+    height: 200px;
 }
