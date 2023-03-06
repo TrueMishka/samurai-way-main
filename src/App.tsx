@@ -11,6 +11,7 @@ import {DialogsContainer} from "./componets/Dialogs/DialogsContainer";
 import {UsersContainer} from "./componets/Users/UsersContainer";
 import ProfileContainer from "./componets/Profile/ProfileContainer";
 import HeaderContainer from "./componets/Header/HeaderContainer";
+import {Login} from "./componets/Login/Login";
 
 const App = () => {
     return (
@@ -19,7 +20,7 @@ const App = () => {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
-                    {/*<Route exact path={'/'} render={() => <ProfileContainer/>}/>*/}
+                    <Route path={'/login'} render={() => <Login/>}/>
                     <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
                     <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                     <Route path={'/users'} render={() => <UsersContainer/>}/>
