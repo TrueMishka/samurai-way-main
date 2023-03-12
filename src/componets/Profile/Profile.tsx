@@ -8,7 +8,7 @@ type ProfilePropsType = {
     profile: ProfileType
 }
 
-export const Profile:React.FC<ProfilePropsType>= ({profile, children}) => {
+export const Profile:React.FC<ProfilePropsType>= ({profile}) => {
     return (
         <div className={classes.profile}>
             <ProfileInfo profile={profile}/>
