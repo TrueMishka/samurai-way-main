@@ -25,7 +25,7 @@ export const API = {
                 })
         }
     },
-    followAPI:{
+    followAPI: {
         follow(userId: number) {
             return instance.post(`follow/${userId}`)
                 .then(res => {
@@ -34,6 +34,26 @@ export const API = {
         },
         unfollow(userId: number) {
             return instance.delete(`follow/${userId}`)
+                .then(res => {
+                    return res.data
+                })
+        }
+    },
+    profileAPI: {
+        getProfile(userId: number) {
+            return instance.get(`profile/${userId}`)
+                .then(res => {
+                    return res.data
+                })
+        },
+        getStatus(userId: number) {
+            return instance.get(`profile/status/${userId}`)
+                .then(res => {
+                    return res.data
+                })
+        },
+        updateStatus(status: string) {
+            return instance.put(`profile/status`, {status: status})
                 .then(res => {
                     return res.data
                 })

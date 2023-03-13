@@ -6,13 +6,15 @@ import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: ProfileType
+    status: string
+    updateStatus: (status: string) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
 
-/*    if (!props.profile) {
+    if (!props.profile) {
         return <PreLoader/>
-    }*/
+    }
 
     return (
         <div>
@@ -24,7 +26,9 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                 {props.profile.photos
                     ? <img src={props.profile.photos.large}/>
                     : <PreLoader/>}
-                <ProfileStatus status={'Hey!'}/>
+                <ProfileStatus
+                    status={props.status}
+                    updateStatus={props.updateStatus}/>
                 <div>{`Name: ${props.profile.fullName}`}</div>
                 <div>{`About: ${props.profile.aboutMe}`}</div>
                 <div>{`id: ${props.profile.userId}`}</div>

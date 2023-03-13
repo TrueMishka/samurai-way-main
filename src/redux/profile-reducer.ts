@@ -1,9 +1,12 @@
 import {ActionTypes} from "./redux-store";
 import axios from "axios";
+import {API} from "../api/api";
+import {Dispatch} from "redux";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
+const SET_USER_STATUS = 'SET-USER-STATUS'
 
 export type PostDataType = {
     id: number
@@ -39,7 +42,8 @@ const initialState = {
         {id: 1, message: 'Hello World', likesCount: 15},
         {id: 2, message: 'Goodbye World', likesCount: 23},
     ] as PostDataType[],
-    newPostText: ''
+    newPostText: '',
+    status: ''
 }
 
 export type ProfilePageStateType = typeof initialState
@@ -58,8 +62,10 @@ const profileReducer = (state: ProfilePageStateType = initialState, action: Acti
             return state
         case UPDATE_NEW_POST_TEXT:
             return {...state, newPostText: action.newText}
-        case "SET-USER-PROFILE":
+        case SET_USER_PROFILE:
             return {...state, profile: action.profile}
+        case SET_USER_STATUS:
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -71,16 +77,31 @@ export const updateNewPostTextCreator = (postText: string) => ({
     type: UPDATE_NEW_POST_TEXT,
     newText: postText
 } as const)
-export  const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
+export const setUserProfileAC = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
+export const setUserStatusAC = (status: string) => ({type: SET_USER_STATUS, status} as const)
 
 // ThunkCreators
-export const getUserProfile = (userId: string) => {
+export const getUserProfileAC = (userId: number) => {
     return (dispatch: any) => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
-                dispatch(setUserProfile(response.data))
+        API.profileAPI.getProfile(userId)
+            .then(data => {
+                dispatch(setUserProfileAC(data))
             })
     }
+}
+export const getStatusTC = (userId: number) => (dispatch: Dispatch) => {
+    API.profileAPI.getStatus(userId)
+        .then(data => {
+            dispatch(setUserStatusAC(data))
+        })
+}
+export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
+    API.profileAPI.updateStatus(status)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setUserStatusAC(status))
+            }
+        })
 }
 
 export default profileReducer

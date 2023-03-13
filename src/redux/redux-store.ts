@@ -1,6 +1,11 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunkMiddleware from "redux-thunk";
-import profileReducer, {addPostCreator, setUserProfile, updateNewPostTextCreator} from "./profile-reducer";
+import profileReducer, {
+    addPostCreator,
+    setUserProfileAC,
+    setUserStatusAC,
+    updateNewPostTextCreator
+} from "./profile-reducer";
 import dialogsReducer, {sendMessageCreator, updateNewMessageBodyCreator} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer, {
@@ -16,7 +21,8 @@ import authReducer, {setAuthUserData} from "./auth-reducer";
 
 export type ActionTypes = ReturnType<typeof addPostCreator>
     | ReturnType<typeof updateNewPostTextCreator>
-    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setUserProfileAC>
+    | ReturnType<typeof setUserStatusAC>
     | ReturnType<typeof sendMessageCreator>
     | ReturnType<typeof updateNewMessageBodyCreator>
     | ReturnType<typeof followSuccess>
