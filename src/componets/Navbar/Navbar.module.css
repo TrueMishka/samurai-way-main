@@ -1,6 +1,7 @@
 .nav {
     grid-area: navbar;
     width: 100px;
+    min-height: 100vh;
     background-color: #E6E6E6;
     padding: 15px;
 }

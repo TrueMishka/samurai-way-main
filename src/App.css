@@ -6,7 +6,11 @@
   'navbar content';
   grid-template-columns: 100px 1fr;
   grid-template-rows: 60px 10fr;
-  /*grid-gap: 10px;*/
+}
+
+.app-wrapper-page {
+  display: flex;
+  flex-direction: row;
 }
 
 .app-wrapper-content {
