@@ -18,6 +18,7 @@ import usersReducer, {
     toggleIsFetching
 } from "./users-reducer";
 import authReducer, {setAuthUserData} from "./auth-reducer";
+import { reducer as formReducer } from 'redux-form'
 
 export type ActionTypes = ReturnType<typeof addPostCreator>
     | ReturnType<typeof updateNewPostTextCreator>
@@ -39,9 +40,14 @@ const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 })
+
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+
+// @ts-ignore
+window.store = store;
