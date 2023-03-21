@@ -3,10 +3,9 @@ import thunkMiddleware from "redux-thunk";
 import profileReducer, {
     addPostCreator,
     setUserProfileAC,
-    setUserStatusAC,
-    updateNewPostTextCreator
+    setUserStatusAC
 } from "./profile-reducer";
-import dialogsReducer, {sendMessageCreator, updateNewMessageBodyCreator} from "./dialogs-reducer";
+import dialogsReducer, {sendMessageCreator} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer, {
     followSuccess,
@@ -21,11 +20,9 @@ import authReducer, {setAuthUserData} from "./auth-reducer";
 import { reducer as formReducer } from 'redux-form'
 
 export type ActionTypes = ReturnType<typeof addPostCreator>
-    | ReturnType<typeof updateNewPostTextCreator>
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setUserStatusAC>
     | ReturnType<typeof sendMessageCreator>
-    | ReturnType<typeof updateNewMessageBodyCreator>
     | ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
