@@ -1,10 +1,9 @@
-import React, {KeyboardEvent, RefObject} from "react";
+import React from "react";
 import classes from "./Dialogs.module.css";
 import {DialogItem} from "./Dialogitem/DialogItem";
-import {Message} from "./Dialogitem/Message/Message";
-import {InitialStateType} from "../../redux/dialogs-reducer";
-import {Redirect} from "react-router-dom";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Message} from "./Message/Message";
+import {InitialStateType} from "redux/dialogs-reducer";
+import {AddMessageFormRedux, AddMessageFormType} from "componets/Dialogs/AddMessageForm/AddMessageForm";
 
 type PropsType = {
     isAuth: boolean
@@ -40,21 +39,3 @@ export const Dialogs: React.FC<PropsType> = ({isAuth, dialogsPage, sendMessage})
         </div>
     );
 }
-
-type AddMessageFormType = {
-    newMessageBody: string
-}
-
-const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormType>> = (props) => {
-    const { handleSubmit } = props
-    return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <Field component={'textarea'} name={'newMessageBody'} placeholder={'Enter your message'}/>
-            </div>
-            <button>add</button>
-        </form>
-    )
-}
-
-const AddMessageFormRedux = reduxForm<AddMessageFormType>({form: 'dialogAddMessageForm'})(AddMessageForm)
