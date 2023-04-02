@@ -1,5 +1,5 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import thunkMiddleware from "redux-thunk";
+import {AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
+import thunkMiddleware, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import profileReducer, {
     addPostCreator,
     setUserProfileAC,
@@ -16,7 +16,7 @@ import usersReducer, {
     toggleFollowingProgress,
     toggleIsFetching
 } from "./users-reducer";
-import authReducer, {setAuthUserData} from "./auth-reducer";
+import authReducer, {resetAuthUserData, setAuthUserData} from "./auth-reducer";
 import { reducer as formReducer } from 'redux-form'
 
 export type ActionTypes = ReturnType<typeof addPostCreator>
@@ -31,6 +31,7 @@ export type ActionTypes = ReturnType<typeof addPostCreator>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof resetAuthUserData>
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -45,6 +46,9 @@ const rootReducer = combineReducers({
 export type AppStateType = ReturnType<typeof rootReducer>
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AnyAction>
+export type AppDispatch = ThunkDispatch<AppStateType, unknown, AnyAction>
 
 // @ts-ignore
 window.store = store;
