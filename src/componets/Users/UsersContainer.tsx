@@ -71,7 +71,7 @@ const mapStateToProps = (state: AppStateType): PageUsersStateType => {
 }
 
 export const UsersContainer = compose<React.ComponentType>(
-    withAuthRedirect,
+    // withAuthRedirect,
     connect(mapStateToProps, {
         setCurrentPage,
         toggleFollowingProgress,

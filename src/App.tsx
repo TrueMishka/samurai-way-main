@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Navbar} from "componets/Navbar/Navbar";
 import {BrowserRouter, Route} from "react-router-dom";
@@ -10,8 +10,24 @@ import {UsersContainer} from "componets/Users/UsersContainer";
 import ProfileContainer from "./componets/Profile/ProfileContainer";
 import HeaderContainer from "./componets/Header/HeaderContainer";
 import Login from "./componets/Login/Login";
+import {initializeApp} from "redux/app-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, AppStateType} from "redux/redux-store";
+import {PreLoader} from "componets/common/PreLoader/PreLoader";
 
 const App = () => {
+    const dispatch = useDispatch<AppDispatch>()
+    const isInitialized = useSelector<AppStateType, boolean>((state) => state.app.isInitialized)
+
+    useEffect(() => {
+        dispatch(initializeApp())
+    }, [])
+
+    console.log(isInitialized)
+    if (!isInitialized) {
+        return <PreLoader/>
+    }
+
     return (
         <BrowserRouter>
             <div className={'app-wrapper'}>

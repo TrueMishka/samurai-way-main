@@ -18,8 +18,10 @@ import usersReducer, {
 } from "./users-reducer";
 import authReducer, {resetAuthUserData, setAuthUserData} from "./auth-reducer";
 import { reducer as formReducer } from 'redux-form'
+import appReducer, {initializedSuccess} from "redux/app-reducer";
 
-export type ActionTypes = ReturnType<typeof addPostCreator>
+export type ActionTypes = ReturnType<typeof initializedSuccess>
+    | ReturnType<typeof addPostCreator>
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setUserStatusAC>
     | ReturnType<typeof sendMessageCreator>
@@ -39,6 +41,7 @@ const rootReducer = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    app: appReducer,
     form: formReducer
 })
 
