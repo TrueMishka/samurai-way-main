@@ -23,7 +23,6 @@ const App = () => {
         dispatch(initializeApp())
     }, [])
 
-    console.log(isInitialized)
     if (!isInitialized) {
         return <PreLoader/>
     }
