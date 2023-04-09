@@ -55,7 +55,6 @@ export const getAuthUserData = (): AppThunk => {
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, email, login} = data.data
-                    console.log(data.data)
                     dispatch(setAuthUserData(id, email, login, true))
                 }
             })

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo, useMemo} from "react";
 import {Post} from "./Post/Post";
 import classes from "./MyPosts.module.css";
 import {ProfilePageStateType} from "redux/profile-reducer";
@@ -12,8 +12,8 @@ type PropsType = {
     profilePage: ProfilePageStateType
     addPost: (newPostText: string) => void
 }
-export const MyPosts: React.FC<PropsType> = ({profilePage, addPost}) => {
-
+export const MyPosts: React.FC<PropsType> = memo(({profilePage, addPost}) => {
+    console.log('render')
     const postsElements = profilePage.posts.map(p => {
         return <div key={p.id}>
             <Post id={p.id}
@@ -38,7 +38,7 @@ export const MyPosts: React.FC<PropsType> = ({profilePage, addPost}) => {
             </div>
         </div>
     );
-}
+})
 
 type AddPostFormType = {
     newPostText: string

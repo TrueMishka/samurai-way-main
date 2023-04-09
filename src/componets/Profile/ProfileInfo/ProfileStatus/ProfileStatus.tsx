@@ -10,10 +10,6 @@ export const ProfileStatus = (props: PropsType) => {
     const [editMode, setEditMode] = useState(false)
     const [inputValue, setInputValue] = useState(props.status)
 
-    useEffect(() => {
-        setInputValue(props.status)
-    }, [props.status])
-
     const onClickStatusHandler = () => {
         setEditMode(true)
     }
@@ -22,6 +18,10 @@ export const ProfileStatus = (props: PropsType) => {
         props.updateStatus(inputValue)
         setEditMode(false)
     }
+
+    useEffect(() => {
+        setInputValue(props.status)
+    }, [props.status])
 
     return (
         <div>
