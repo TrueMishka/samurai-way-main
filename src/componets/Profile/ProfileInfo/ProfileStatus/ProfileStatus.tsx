@@ -25,7 +25,6 @@ export const ProfileStatus = (props: PropsType) => {
 
     return (
         <div>
-            <span>status: </span>
             {editMode
                 ? <input
                     autoFocus={true}

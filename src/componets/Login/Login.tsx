@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {login} from "redux/auth-reducer";
 import {AppStateType} from "redux/redux-store";
 import {Redirect} from "react-router-dom";
+import classes from './Login.module.scss';
 import classesFormControls from '../../componets/common/FormsContorls/FormControls.module.css'
 
 type FormDataType = {
@@ -61,7 +62,7 @@ const Login: React.FC<LoginFromDataType> = ({login, isAuth}) => {
     if (isAuth) return <Redirect to={'/profile'}/>
 
     return (
-        <div>
+        <div className={classes.wrapper}>
             <h1>Login</h1>
             <LoginReduxForm onSubmit={onSubmit}/>
         </div>

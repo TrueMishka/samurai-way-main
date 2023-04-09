@@ -1,8 +1,10 @@
 import React from 'react';
-import classes from "./ProfileInfo.module.css";
+import classes from "./ProfileInfo.module.scss";
 import {ProfileType} from "../../../redux/profile-reducer";
 import {PreLoader} from "../../common/PreLoader/PreLoader";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
+import userBgImg from 'assets/images/user-bg.jpg'
+import userStockImg from 'assets/images/user.png'
 
 type ProfileInfoPropsType = {
     profile: ProfileType
@@ -16,22 +18,29 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
         return <PreLoader/>
     }
 
+    const userPhoto = props.profile
+        ? <img src={props.profile.photos?.large
+            ? props.profile.photos.large
+            : userStockImg}/>
+        : <img src={userStockImg}/>
+
     return (
-        <div>
-            {/*<div className={classes.profile}>
-                <img className={classes.profileBackground}
-                     src={'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg'}/>
-            </div>*/}
-            <div className={classes.descriptionBlock}>
-                {props.profile.photos
-                    ? <img src={props.profile.photos.large}/>
-                    : <PreLoader/>}
-                <ProfileStatus
-                    status={props.status}
-                    updateStatus={props.updateStatus}/>
-                <div>{`Name: ${props.profile.fullName}`}</div>
-                <div>{`About: ${props.profile.aboutMe}`}</div>
-                <div>{`id: ${props.profile.userId}`}</div>
+        <div className={classes.wrapper}>
+            <div className={classes.profile}>
+                <img className={classes.profileBackground} src={userBgImg}/>
+            </div>
+            <div className={classes.profileBlock}>
+                <div className={classes.profileImage}>
+                    {userPhoto}
+                </div>
+                <div className={classes.profileInfo}>
+                    <h2 className={classes.profileName}>{props.profile.fullName}</h2>
+                    <ProfileStatus
+                        status={props.status}
+                        updateStatus={props.updateStatus}/>
+                </div>
+                {/*<div>{`About: ${props.profile.aboutMe}`}</div>*/}
+                {/*<div>{`id: ${props.profile.userId}`}</div>*/}
             </div>
         </div>
     );

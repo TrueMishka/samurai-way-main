@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from "./Users.module.css";
+import classes from "./Users.module.scss";
 import userPhoto from "../../assets/images/user.png";
 import {UserDataType} from "redux/users-reducer";
 import {NavLink} from "react-router-dom";
@@ -33,19 +33,18 @@ export const Users: React.FC<UsersPropsType> = (props) => {
     }
 
     return (
-        <div>
+        <div className={classes.wrapper}>
             <div className={classes.pages}>
-                {pages.map(p => {
-                    return <span
-                        key={p}
-                        className={props.currentPage === p ? classes.selectedPage : ''}
-                        onClick={() => props.pageChanged(p)}
-                    >
-                            {p}
-                        </span>
-                })}
+                {pages.map(p => p < 40 && <span
+                    key={p}
+                    className={props.currentPage === p ? classes.selectedPage : ''}
+                    onClick={() => props.pageChanged(p)}
+                >
+                            {`${p} `}
+                        </span>)}
             </div>
-            {props.users.map(u => <div key={u.id}>
+            <div className={classes.users}>
+                {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
                         <NavLink to={`/profile/${u.id}`}>
@@ -54,11 +53,13 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => onClickUnfollow(u.id)}>Unfollow</button>
-                            : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => onClickFollow(u.id)}>Follow</button>}
+                            ? <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                      onClick={() => onClickUnfollow(u.id)}>Unfollow</button>
+                            : <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                      onClick={() => onClickFollow(u.id)}>Follow</button>}
                     </div>
                 </span>
-                <span>
+                    <span>
                     <span>
                         <div>{u.name}</div>
                         <div>{u.status}</div>
@@ -69,7 +70,8 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                     </span>
                     <span></span>
                 </span>
-            </div>)}
+                </div>)}
+            </div>
         </div>
     );
 };

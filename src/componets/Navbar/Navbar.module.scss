@@ -1,0 +1,43 @@
+@import 'src/assets/style/variables';
+@import 'src/assets/style/mixins';
+
+.navWrapper {
+    position: fixed;
+    height: 100vh;
+    top: 100px;
+    left: 0;
+    padding: 10px;
+    //z-index: 1;
+
+    .nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        width: 200px;
+        padding: 20px;
+        background-color: $bgColor;
+        @include border();
+        @include borderShadow();
+
+        .item {
+            font-size: 20px;
+
+            a {
+                color: $textSecondColor;
+                text-decoration: none;
+            }
+
+            .active {
+                color: $primaryColor;
+            }
+        }
+    }
+
+
+    //grid-area: navbar;
+    //width: 100px;
+    //min-height: 100vh;
+    //background-color: #E6E6E6;
+    //padding: 15px;
+}

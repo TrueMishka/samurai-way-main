@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import './App.css';
+import './App.scss';
 import {Navbar} from "componets/Navbar/Navbar";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "componets/News/News";
@@ -14,6 +14,8 @@ import {initializeApp} from "redux/app-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, AppStateType} from "redux/redux-store";
 import {PreLoader} from "componets/common/PreLoader/PreLoader";
+
+// http://uitheme.net/sociala/user-page.html#
 
 const App = () => {
     const dispatch = useDispatch<AppDispatch>()

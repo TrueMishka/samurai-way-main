@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from "componets/Dialogs/Dialogs.module.css";
+import classes from "componets/Dialogs/Dialogs.module.scss";
 import {MessageType} from "redux/dialogs-reducer";
 
 

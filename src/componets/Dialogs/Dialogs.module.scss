@@ -1,6 +1,10 @@
-.dialogs {
-    display: grid;
-    grid-template-columns: 2fr 10fr;
+@import 'src/assets/style/variables';
+@import 'src/assets/style/mixins';
+
+.wrapper {
+    @include pageWrapper();
+    padding: 10px;
+    flex-direction: row;
 }
 
 .dialogItems {

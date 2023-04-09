@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./Dialogs.module.css";
+import classes from "./Dialogs.module.scss";
 import {DialogItem} from "./Dialogitem/DialogItem";
 import {Message} from "./Message/Message";
 import {InitialStateType} from "redux/dialogs-reducer";
@@ -24,7 +24,7 @@ export const Dialogs: React.FC<PropsType> = ({isAuth, dialogsPage, sendMessage})
 
 
     return (
-        <div className={classes.dialogs}>
+        <div className={classes.wrapper}>
             <div className={classes.dialogItems}>
                 {dialogsElements}
             </div>

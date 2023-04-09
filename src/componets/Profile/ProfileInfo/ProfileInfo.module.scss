@@ -1,0 +1,65 @@
+@import 'src/assets/style/variables';
+@import 'src/assets/style/mixins';
+
+.wrapper {
+
+  .profile {
+    padding: 15px;
+
+    .profileBackground {
+      border-radius: 20px;
+      width: 100%;
+    }
+  }
+
+  .profileBlock {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+
+    .profileImage {
+      position: absolute;
+      bottom: -10px;
+      left: 40px;
+      background-color: $bgColor;
+      border-radius: 100%;
+
+      img {
+        border: 10px solid $bgColor;
+        border-radius: 100%;
+        width: 120px;
+        height: 120px;
+      }
+    }
+
+    .profileInfo {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-left: 200px;
+
+      .profileName {
+        margin: 0 0 auto;
+      }
+    }
+  }
+}
+
+
+.profile img {
+  /*width: 1200px;
+  height: 600px;*/
+
+  //width: max(20vw, 1000px);
+  //aspect-ratio: 5 / 1;
+  //border-radius: 0.5rem;
+  ///*margin-top: 0.75rem;*/
+  //object-fit: cover;
+}
+
+
+.descriptionBlock img {
+  width: 200px;
+  height: 200px;
+}

@@ -1,0 +1,25 @@
+@import 'src/assets/style/variables';
+@import 'src/assets/style/mixins';
+
+.wrapper {
+    @include pageWrapper();
+    padding: 10px;
+
+    .pages {
+
+    }
+
+    .users {
+
+    }
+}
+
+.userPhoto {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+}
+
+.selectedPage {
+    font-weight: bold;
+}

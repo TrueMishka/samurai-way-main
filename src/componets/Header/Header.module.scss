@@ -1,0 +1,26 @@
+@import 'src/assets/style/variables';
+@import 'src/assets/style/mixins';
+
+.header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100px;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $bgColor;
+    z-index: 1;
+    @include borderShadow();
+
+    .logoImg {
+        width: 60px;
+        padding-left: 30px;
+    }
+
+    .loginBlock {
+        padding-right: 30px;
+        color: $primaryColor;
+    }
+}

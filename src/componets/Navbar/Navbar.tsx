@@ -1,5 +1,5 @@
 import React from "react";
-import classes from './Navbar.module.css';
+import classes from './Navbar.module.scss';
 import {NavLink} from "react-router-dom";
 import {FriendType} from "../../redux/sidebar-reducer";
 
@@ -9,8 +9,8 @@ type PropsType = {
 
 export const Navbar = () => {
     return (
-        <div className={classes.nav}>
-            <nav>
+        <div className={classes.navWrapper}>
+            <nav className={classes.nav}>
                 <div className={classes.item}>
                     <NavLink to={'/profile'} activeClassName={classes.active}>Profile</NavLink>
                 </div>
